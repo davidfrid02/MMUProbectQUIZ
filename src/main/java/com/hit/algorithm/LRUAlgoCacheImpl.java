@@ -19,7 +19,6 @@ public class LRUAlgoCacheImpl<K,V> implements IAlgoCache<K,V>{
 	@Override
 	public void removeElement(K key) {
 		 ram.remove(key);
-		
 	}
 
 }

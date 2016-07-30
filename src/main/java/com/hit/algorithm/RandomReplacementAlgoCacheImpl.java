@@ -10,13 +10,12 @@ public class RandomReplacementAlgoCacheImpl<K,V> implements IAlgoCache<K,V> {
 	
 	private Map<K, V> ram;
 
-	RandomReplacementAlgoCacheImpl(int capacity)
-	{
+	RandomReplacementAlgoCacheImpl(int capacity) {
 		ram = new HashMap<>(capacity);
 	}
 	@Override
 	public V getElement(K key) {
-			return ram.get(key);
+		return ram.get(key);
 	}
 
 	@Override
@@ -38,7 +37,6 @@ public class RandomReplacementAlgoCacheImpl<K,V> implements IAlgoCache<K,V> {
 	@Override
 	public void removeElement(K key) {
 		 ram.remove(key);
-		
 	}
 
 }
