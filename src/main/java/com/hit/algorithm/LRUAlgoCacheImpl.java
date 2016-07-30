@@ -1,22 +1,24 @@
 package com.hit.algorithm;
 
+import java.util.Map;
+
 public class LRUAlgoCacheImpl<K,V> implements IAlgoCache<K,V>{
 
+	private Map<K, V> ram;
+	private int capacity;
 	@Override
 	public V getElement(K key) {
-		// TODO Auto-generated method stub
-		return null;
+			return ram.get(key);
 	}
 
 	@Override
 	public V putElement(K key, V value) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void removeElement(K key) {
-		// TODO Auto-generated method stub
+		 ram.remove(key);
 		
 	}
 
