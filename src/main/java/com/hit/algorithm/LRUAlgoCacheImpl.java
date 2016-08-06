@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Iterator;
 
-
 public class LRUAlgoCacheImpl<K, V> implements IAlgoCache<K, V>{
 
 	private Map<K, V> cache;
@@ -32,9 +31,9 @@ public class LRUAlgoCacheImpl<K, V> implements IAlgoCache<K, V>{
 			// will make it the most recently used key (built in container ability)
 			if(capacity == cache.size()){
 				Iterator<K> iterator = this.cache.keySet().iterator();
-				K lastKey = iterator.next();
-				curValue = cache.get(lastKey);
-				cache.remove(lastKey);
+				K lruKey = iterator.next();
+				curValue = cache.get(lruKey);
+				cache.remove(lruKey);
 			}
 		}
 		cache.put(key, value);
