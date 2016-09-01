@@ -2,12 +2,12 @@ package com.hit.algorithm;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Iterator;
 
 public class MRUAlgoCacheImpl<K,V> implements IAlgoCache<K,V> {
 
 	private Map<K, V> cache;
 	private int capacity;
+	private K lastAccessedKey; // used to hold the last accesed key so won't have to iterate the entire list to find it
 	
 	public MRUAlgoCacheImpl(int capacity){
 		this.capacity = capacity;
@@ -16,9 +16,13 @@ public class MRUAlgoCacheImpl<K,V> implements IAlgoCache<K,V> {
 		// meaning it will be the most recently used element
 		// used the default load factor
 		cache = new LinkedHashMap<K,V>(capacity, 0.75F, true);
+		lastAccessedKey = null;
 	}
 	@Override
 	public V getElement(K key) {
+		V value = cache.get(key);
+		if(value != null)
+			lastAccessedKey = key;
 		return cache.get(key); // returns null if doesn't exist
 	}
 
@@ -28,17 +32,13 @@ public class MRUAlgoCacheImpl<K,V> implements IAlgoCache<K,V> {
 		if(!cache.containsKey(key)){
 			// if the cache contains this key then just putting it back (perhaps with a new value)
 			// will make it the most recently used key (built in container ability)
-			if(capacity == cache.size()){
-				Iterator<K> iterator = this.cache.keySet().iterator();
-				K mruKey = iterator.next();
-				// gets the most recently used key
-				while (iterator.hasNext()){
-					mruKey = iterator.next();
-				}
-				curValue = cache.get(mruKey);
-				cache.remove(mruKey);
+			if(capacity == cache.size()){	
+				// gets the most recently used value by the key
+				curValue = cache.get(lastAccessedKey);
+				cache.remove(lastAccessedKey);
 			}
 		}
+		lastAccessedKey = key;
 		cache.put(key, value);
 		return curValue;
 	}
