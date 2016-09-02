@@ -8,8 +8,6 @@ import hit.memoryunits.*;
 public class IAlgoCacheTest {
 
 	public static void main(String[] args) {
-
-		Test.something();
 		// IAlgoCache<Integer,Integer> lru = new LRUAlgoCacheImpl<>(3);
 		//
 		// for(int i =0;i<3;i++)
@@ -69,29 +67,6 @@ public class IAlgoCacheTest {
 		// rrValue = rr.putElement(7, 7);
 		// System.out.println("removed " + rrValue);
 		// System.out.println(rr.toString());
-		MemoryManagementUnit mmu = new MemoryManagementUnit(10, new LRUAlgoCacheImpl<Long,Long>(2));
-		try {
-			Page<byte[]>[] pages = mmu.getPages(new Long[]{new Long(1), new Long(2)});
-			for(Page<byte[]> page : pages) {
-				System.out.println(Arrays.toString(page.getContent()));
-			}
-			
-			pages = mmu.getPages(new Long[]{new Long(3), new Long(999)});
-			for(Page<byte[]> page : pages) {
-				System.out.println(Arrays.toString(page.getContent()));
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-//		try {
-//			hd.writeHd();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 
 }
