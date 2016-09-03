@@ -46,7 +46,11 @@ public class MMUDriver {
 		 List<ProcessCycles> processCycles = runConfig.getProcessesCycles();
 		 List<Process> processes = createProcesses(processCycles,mmu);
 		 runProccesses(processes);
+		 
+		 // need to check that all processes finished before shutting down the mmu
+		 mmu.shutdown();
 		}
+		
 	}
 	
 	public static void runProccesses(List<Process> processes) {

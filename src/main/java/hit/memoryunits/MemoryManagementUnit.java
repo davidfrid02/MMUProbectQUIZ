@@ -14,7 +14,7 @@ public class MemoryManagementUnit {
 		this.algo = algo;
 	}
 
-	public Page<byte[]>[] getPages(Long[] pageIds) throws IOException { // need to insert try/catch statements
+	public synchronized Page<byte[]>[] getPages(Long[] pageIds) throws IOException { // need to insert try/catch statements
 		// iterating over the pageIds requested by a process
 		Long moveToHdPageId;
 		Page<byte[]> moveToHdPage;
@@ -47,6 +47,12 @@ public class MemoryManagementUnit {
 
 	public IAlgoCache<Long, Long> getAlgo() {
 		return algo;
+	}
+	
+	// this method will be called when the MMU is shutting down
+	public void shutdown() {
+		Page<byte[]>[] pages = ram.getAllPages();
+		HardDisk.getInstance().insertMultiplePages(pages);
 	}
 
 //	public void setRam(RAM ram) {

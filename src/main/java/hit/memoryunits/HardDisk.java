@@ -58,5 +58,18 @@ public class HardDisk {
 			throw e;
 		}
 	}
+	
+	public void insertMultiplePages(Page<byte[]>[] ramPages) {
+		// updates the pages in HD with the updated page from RAM
+		for(Page<byte[]> page : ramPages) {
+			pages.put(page.getPageId(), page);
+		}
+		try {
+			writeHd();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

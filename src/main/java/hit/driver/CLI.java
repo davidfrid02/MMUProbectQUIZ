@@ -24,19 +24,30 @@ public class CLI {
 		// writing back to the command line to out
 		// returning the configuration when it is finished
 		
+		String[] configuration = null;
+		boolean start = false;
 		// trying with resources
 		try (Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(in)))) {
-			while (sc.hasNextLine()) {
+			//
+			while(sc.hasNextLine()) {
 				switch (sc.nextLine().toUpperCase()) {
 				case "START":
 					write("Please enter required algorithm and ram capacity\n");
+					start = true;
 					break;
 				case "STOP":
+					//TODO need to implement shutdown of the system here?
 					write("Thank you\n");
-					break;
+					start = false;
+					return null;
+				//case "LRU
 				default:
 					write("Not a valid command\n");
 				}
+			}
+			
+			while (sc.hasNextLine()) {
+				
 			}
 		}
 		return null;

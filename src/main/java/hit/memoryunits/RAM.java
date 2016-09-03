@@ -15,42 +15,50 @@ public class RAM {
 		pages = new HashMap<>(this.initialCapacity);
 	}
 
-	void addPage(Page<byte[]> addPage) {
+	public void addPage(Page<byte[]> addPage) {
 		// need to check what to do with addPage - is actually an object so
 		// putting it will reference it
 		// what if we delete it from the main program?
 		pages.put(addPage.getPageId(), addPage);
 	}
 
-	void addPages(Page<byte[]>[] addPages) {
+	public void addPages(Page<byte[]>[] addPages) {
 		for (Page<byte[]> page : addPages) {
 			this.addPage(page);
 		}
 	}
 
-	Page<byte[]> getPage(Long pageId) {
+	public Page<byte[]> getPage(Long pageId) {
 		return pages.get(pageId);
 	}
 
-	Page<byte[]>[] getPages(Long[] pageIds) {
+	public Page<byte[]>[] getPages(Long[] pageIds) {
 		List<Page<byte[]>> returnPages = new LinkedList<Page<byte[]>>();
 		for (long id : pageIds) {
 			returnPages.add(pages.get(id));
 		}
 		return returnPages.toArray((Page<byte[]>[]) new Page<?>[pageIds.length]);
 	}
+	
+	public Page<byte[]>[] getAllPages() {
+		List<Page<byte[]>> returnPages = new LinkedList<Page<byte[]>>();
+		for (long id : pages.keySet()) {
+			returnPages.add(pages.get(id));
+		}
+		return returnPages.toArray((Page<byte[]>[]) new Page<?>[pages.size()]);
+	}
 
-	void removePage(Page<byte[]> removePage) {
+	public void removePage(Page<byte[]> removePage) {
 		pages.remove(removePage.getPageId());
 	}
 
-	void removePages(Page<byte[]>[] removePages) {
+	public void removePages(Page<byte[]>[] removePages) {
 		for (Page<byte[]> page : removePages) {
 			this.removePage(page);
 		}
 	}
 
-	void setInitialCapacity(int initialCapacity) {
+	public void setInitialCapacity(int initialCapacity) {
 		this.initialCapacity = initialCapacity;
 	}
 }
