@@ -24,32 +24,46 @@ public class CLI {
 		// writing back to the command line to out
 		// returning the configuration when it is finished
 		
-		String[] configuration = null;
+		String[] configuration = new String[2];
 		boolean start = false;
-		// trying with resources
+		String nextWord;
+		
 		try (Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(in)))) {
-			//
-			while(sc.hasNextLine()) {
-				switch (sc.nextLine().toUpperCase()) {
-				case "START":
+			while(sc.hasNext()) {
+				nextWord = sc.next();
+				if(nextWord.equalsIgnoreCase("START")) {
 					write("Please enter required algorithm and ram capacity\n");
 					start = true;
-					break;
-				case "STOP":
-					//TODO need to implement shutdown of the system here?
+				}
+				else if(nextWord.equalsIgnoreCase("STOP")){
 					write("Thank you\n");
 					start = false;
 					return null;
-				//case "LRU
-				default:
+				}
+				else if(nextWord.equalsIgnoreCase("MRU") || nextWord.equalsIgnoreCase("LRU") || nextWord.equalsIgnoreCase("RR") ) {
+					if(start) {
+						configuration[0] = nextWord;
+						if(sc.hasNext()) {
+							try {
+								nextWord = sc.next();
+							    int capacity = Integer.parseInt(nextWord);
+							    configuration[1] = nextWord;
+							    return configuration;
+							} catch (NumberFormatException e) {
+							    write("Please enter a valid number");
+							}
+						}
+					}
+					else {
+						write("Please enter start to begin");
+					}
+				}
+				else{
 					write("Not a valid command\n");
 				}
 			}
-			
-			while (sc.hasNextLine()) {
-				
-			}
 		}
+		
 		return null;
 	}
 
