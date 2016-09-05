@@ -3,10 +3,15 @@ package hit.memoryunits;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 
 public class HardDisk {
 	
@@ -16,15 +21,32 @@ public class HardDisk {
 	private Map<Long, Page<byte[]>> pages;
 	
 	private HardDisk() {
-		pages = new HashMap<>(_SIZE);
-		for(long i=1;i<_SIZE;i++) {
-			pages.put(i, new Page<byte[]>(i,new byte[]{(byte)i}));
+		File f = new File(DEFAULT_FILE_NAME);
+		// if the file exists - read the hard disk from it
+		if (f.exists()) {
+			try {
+				FileInputStream hardDiskFile = new FileInputStream(DEFAULT_FILE_NAME);
+				ObjectInputStream objIn = new ObjectInputStream(new BufferedInputStream(hardDiskFile));
+				pages = (Map<Long, Page<byte[]>>) objIn.readObject();
+				objIn.close();
+				hardDiskFile.close();
+			} catch (IOException | ClassNotFoundException e) {
+				// TODO implement exception
+				e.printStackTrace();
+			}
 		}
-		try {
-			writeHd();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		// else - create and initialize a new hard disk with some default values
+		else {
+			pages = new HashMap<>(_SIZE);
+			for (long i = 1; i < _SIZE; i++) {
+				pages.put(i, new Page<byte[]>(i, new byte[] { (byte) i }));
+			}
+			try {
+				writeHd();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -55,6 +77,7 @@ public class HardDisk {
 			objOut.close();
 			hardDiskFile.close();
 		} catch (IOException e) {
+			//TODO implement exception
 			throw e;
 		}
 	}

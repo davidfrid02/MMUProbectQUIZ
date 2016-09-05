@@ -12,64 +12,60 @@ import java.util.Scanner;
 
 public class CLI {
 
-	private InputStream in;
-	private OutputStream out;
+	//private InputStream in;
+	//private OutputStream out;
+	private Scanner sc;
+	private PrintWriter pw;
+
 	public CLI(InputStream in, OutputStream out) {
-		this.in = in;
-		this.out = out;
+		//this.in = in;
+		//this.out = out;
+		pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(out)));
+		sc = new Scanner(new BufferedReader(new InputStreamReader(in)));
 	}
 
 	public String[] getConfiguration() {
 		// reading the command line with scanner and in
 		// writing back to the command line to out
 		// returning the configuration when it is finished
-		
-		String[] configuration = new String[2];
+
+		String[] command = null;
 		boolean start = false;
 		String nextWord;
-		
-		try (Scanner sc = new Scanner(new BufferedReader(new InputStreamReader(in)))) {
-			while(sc.hasNext()) {
-				nextWord = sc.next();
-				if(nextWord.equalsIgnoreCase("START")) {
-					write("Please enter required algorithm and ram capacity\n");
-					start = true;
-				}
-				else if(nextWord.equalsIgnoreCase("STOP")){
-					write("Thank you\n");
-					start = false;
-					return null;
-				}
-				else if(nextWord.equalsIgnoreCase("MRU") || nextWord.equalsIgnoreCase("LRU") || nextWord.equalsIgnoreCase("RR") ) {
-					if(start) {
-						configuration[0] = nextWord;
-						if(sc.hasNext()) {
-							try {
-								nextWord = sc.next();
-							    int capacity = Integer.parseInt(nextWord);
-							    configuration[1] = nextWord;
-							    return configuration;
-							} catch (NumberFormatException e) {
-							    write("Please enter a valid number");
-							}
-						}
+
+		while (sc.hasNextLine()) {
+			nextWord = sc.nextLine();
+			command = nextWord.split("\\s+");
+			if (command[0].equalsIgnoreCase("START")) {
+				write("Please enter required algorithm and ram capacity\n");
+				start = true;
+			} else if (command[0].equalsIgnoreCase("STOP")) {
+				write("Thank you\n");
+				start = false;
+				return null;
+			} else if (command[0].equalsIgnoreCase("MRU") || command[0].equalsIgnoreCase("LRU")
+					|| command[0].equalsIgnoreCase("RR")) {
+				if (start) {
+					try {
+						@SuppressWarnings("unused")
+						int checkIfInt = Integer.parseInt(command[1]);
+						return command;
+					} catch (NumberFormatException e) {
+						write("Please enter a valid number\n");
 					}
-					else {
-						write("Please enter start to begin");
-					}
+				} else {
+					write("Please enter start to begin\n");
 				}
-				else{
-					write("Not a valid command\n");
-				}
+			} else {
+				write("Not a valid command, system is exiting\n");
+				return null;
 			}
 		}
-		
+
 		return null;
 	}
 
 	public void write(String string) {
-		// need to check if flush method is a must
-		PrintWriter pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(out)));
 		pw.write(string);
 		pw.flush();
 	}

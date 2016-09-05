@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -46,10 +47,9 @@ public class MMUDriver {
 			List<ProcessCycles> processCycles = runConfig.getProcessesCycles();
 			List<Process> processes = createProcesses(processCycles, mmu);
 			runProccesses(processes);
-
-			// need to check that all processes finished before shutting down
-			// the mmu
-			//mmu.shutdown();
+			
+			// runProcesses will return only after all processes have finished and then we can safely shutdown MMU
+			mmu.shutdown();
 		}
 
 	}
@@ -60,6 +60,12 @@ public class MMUDriver {
 			executor.execute(proc);
 		}
 		((ExecutorService) executor).shutdown();
+		try {
+			((ExecutorService) executor).awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
