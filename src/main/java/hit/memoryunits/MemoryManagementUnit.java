@@ -16,6 +16,7 @@ public class MemoryManagementUnit {
 		this.algo = algo;
 	}
 
+	@SuppressWarnings("unchecked")
 	public synchronized Page<byte[]>[] getPages(Long[] pageIds) throws IOException { // need to insert try/catch statements
 		// iterating over the pageIds requested by a process
 		Long moveToHdPageId;

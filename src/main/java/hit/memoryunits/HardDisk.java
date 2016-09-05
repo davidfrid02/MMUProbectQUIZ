@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.BufferedInputStream;
@@ -20,6 +19,7 @@ public class HardDisk {
 	private static HardDisk instance = new HardDisk();	
 	private Map<Long, Page<byte[]>> pages;
 	
+	@SuppressWarnings("unchecked")
 	private HardDisk() {
 		File f = new File(DEFAULT_FILE_NAME);
 		// if the file exists - read the hard disk from it

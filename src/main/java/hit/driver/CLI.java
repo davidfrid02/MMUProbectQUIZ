@@ -2,7 +2,6 @@ package hit.driver;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -52,7 +51,7 @@ public class CLI {
 							int checkIfInt = Integer.parseInt(command[1]);
 							return command;
 						} catch (NumberFormatException e) {
-							write("Please enter a valid number\n");
+							write("Please enter a valid capacity\n");
 						}
 					} else {
 						write("Please enter a valid capacity\n");

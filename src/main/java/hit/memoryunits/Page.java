@@ -1,5 +1,6 @@
 package hit.memoryunits;
 
+@SuppressWarnings("serial")
 public class Page<T> implements java.io.Serializable {
 
 	private T content;

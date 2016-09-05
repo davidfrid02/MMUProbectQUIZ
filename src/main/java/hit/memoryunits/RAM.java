@@ -16,10 +16,8 @@ public class RAM {
 	}
 
 	public void addPage(Page<byte[]> addPage) {
-		// need to check what to do with addPage - is actually an object so
-		// putting it will reference it
-		// what if we delete it from the main program?
-		pages.put(addPage.getPageId(), addPage);
+		if(addPage != null)
+			pages.put(addPage.getPageId(), addPage);
 	}
 
 	public void addPages(Page<byte[]>[] addPages) {
@@ -32,6 +30,7 @@ public class RAM {
 		return pages.get(pageId);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Page<byte[]>[] getPages(Long[] pageIds) {
 		List<Page<byte[]>> returnPages = new LinkedList<Page<byte[]>>();
 		for (long id : pageIds) {
@@ -40,6 +39,7 @@ public class RAM {
 		return returnPages.toArray((Page<byte[]>[]) new Page<?>[pageIds.length]);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Page<byte[]>[] getAllPages() {
 		List<Page<byte[]>> returnPages = new LinkedList<Page<byte[]>>();
 		for (long id : pages.keySet()) {

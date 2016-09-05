@@ -17,7 +17,6 @@ import com.hit.algorithm.IAlgoCache;
 import com.hit.algorithm.AlgoCacheFactory;
 
 import hit.memoryunits.MemoryManagementUnit;
-import hit.processes.ProcessCycle;
 import hit.processes.ProcessCycles;
 import hit.processes.RunConfiguration;
 import hit.processes.Process;
