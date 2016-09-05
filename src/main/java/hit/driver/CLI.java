@@ -12,14 +12,14 @@ import java.util.Scanner;
 
 public class CLI {
 
-	//private InputStream in;
-	//private OutputStream out;
+	// private InputStream in;
+	// private OutputStream out;
 	private Scanner sc;
 	private PrintWriter pw;
 
 	public CLI(InputStream in, OutputStream out) {
-		//this.in = in;
-		//this.out = out;
+		// this.in = in;
+		// this.out = out;
 		pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(out)));
 		sc = new Scanner(new BufferedReader(new InputStreamReader(in)));
 	}
@@ -31,11 +31,11 @@ public class CLI {
 
 		String[] command = null;
 		boolean start = false;
-		String nextWord;
+		String nextLine;
 
 		while (sc.hasNextLine()) {
-			nextWord = sc.nextLine();
-			command = nextWord.split("\\s+");
+			nextLine = sc.nextLine();
+			command = nextLine.split("\\s+");
 			if (command[0].equalsIgnoreCase("START")) {
 				write("Please enter required algorithm and ram capacity\n");
 				start = true;
@@ -46,12 +46,16 @@ public class CLI {
 			} else if (command[0].equalsIgnoreCase("MRU") || command[0].equalsIgnoreCase("LRU")
 					|| command[0].equalsIgnoreCase("RR")) {
 				if (start) {
-					try {
-						@SuppressWarnings("unused")
-						int checkIfInt = Integer.parseInt(command[1]);
-						return command;
-					} catch (NumberFormatException e) {
-						write("Please enter a valid number\n");
+					if (command.length == 2) {
+						try {
+							@SuppressWarnings("unused")
+							int checkIfInt = Integer.parseInt(command[1]);
+							return command;
+						} catch (NumberFormatException e) {
+							write("Please enter a valid number\n");
+						}
+					} else {
+						write("Please enter a valid capacity\n");
 					}
 				} else {
 					write("Please enter start to begin\n");

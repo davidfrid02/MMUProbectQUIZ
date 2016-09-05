@@ -24,7 +24,7 @@ import hit.processes.Process;
 
 public class MMUDriver {
 
-	public static String CONFIG_FILE_NAME = "config.json";
+	public static String CONFIG_FILE_NAME = "Configuration.json";
 
 	public static void main(String[] args) {
 		// need to check which throws to add (the api has 2)

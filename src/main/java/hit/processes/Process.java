@@ -36,6 +36,7 @@ public class Process implements Runnable {
 				pages = mmu.getPages(procCyc.getPages().toArray(new Long[procCyc.getPages().size()]));
 				// iterate over the pages and update the data according to the
 				// data list
+
 				for (int i = 0; i < pages.length; i++) {
 					pages[i].setContent(procCyc.getData().get(i));
 				}

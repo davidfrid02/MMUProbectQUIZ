@@ -1,6 +1,8 @@
 package hit.memoryunits;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.hit.algorithm.IAlgoCache;
 
@@ -18,6 +20,7 @@ public class MemoryManagementUnit {
 		// iterating over the pageIds requested by a process
 		Long moveToHdPageId;
 		Page<byte[]> moveToHdPage;
+		List<Page<byte[]>> returnPages = new LinkedList<Page<byte[]>>();
 		for (Long pageId : pageIds) {
 			// if the page is not present in RAM
 			if (algo.getElement(pageId) == null) {
@@ -36,9 +39,13 @@ public class MemoryManagementUnit {
 					ram.addPage(HardDisk.getInstance().pageReplacement(moveToHdPage, pageId));
 				}
 			}
+			
+			// the page is surely in the RAM now so adding it to the list
+			returnPages.add(ram.getPage(pageId));
 		}
-		// after all the replacements have been done - return all the pages from the RAM
-		return ram.getPages(pageIds);
+		// after all the replacements have been done - return all the pages
+		return returnPages.toArray((Page<byte[]>[]) new Page<?>[pageIds.length]);
+		//return ram.getPages(pageIds);
 	}
 
 	public RAM getRam() {
