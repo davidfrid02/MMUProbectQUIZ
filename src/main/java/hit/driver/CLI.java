@@ -10,30 +10,23 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class CLI {
-
-	// private InputStream in;
-	// private OutputStream out;
 	private Scanner sc;
 	private PrintWriter pw;
 
 	public CLI(InputStream in, OutputStream out) {
-		// this.in = in;
-		// this.out = out;
 		pw = new PrintWriter(new BufferedWriter(new OutputStreamWriter(out)));
 		sc = new Scanner(new BufferedReader(new InputStreamReader(in)));
 	}
 
+	// used to read requested configuration from the command line and returning it to the main program
 	public String[] getConfiguration() {
-		// reading the command line with scanner and in
-		// writing back to the command line to out
-		// returning the configuration when it is finished
-
 		String[] command = null;
 		boolean start = false;
 		String nextLine;
 
 		while (sc.hasNextLine()) {
 			nextLine = sc.nextLine();
+			// split the string by spaces
 			command = nextLine.split("\\s+");
 			if (command[0].equalsIgnoreCase("START")) {
 				write("Please enter required algorithm and ram capacity\n");
@@ -68,6 +61,7 @@ public class CLI {
 		return null;
 	}
 
+	// used to write to the console
 	public void write(String string) {
 		pw.write(string);
 		pw.flush();

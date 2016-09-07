@@ -14,7 +14,7 @@ import java.io.FileInputStream;
 
 public class HardDisk {
 	
-	static String DEFAULT_FILE_NAME = "HardDisk.txt";	
+	static String DEFAULT_FILE_NAME = "src/main/resources/harddisk/hdPages.txt";	
 	static int _SIZE = 1000;
 	private static HardDisk instance = new HardDisk();	
 	private Map<Long, Page<byte[]>> pages;
