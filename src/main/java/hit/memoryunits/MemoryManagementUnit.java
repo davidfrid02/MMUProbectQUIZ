@@ -54,7 +54,7 @@ public class MemoryManagementUnit {
 	}
 
 	public IAlgoCache<Long, Long> getAlgo() {
-		return algo;
+		return algo;	
 	}
 	
 	// this method will be called when the MMU is shutting down
