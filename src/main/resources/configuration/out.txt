@@ -1,0 +1,7 @@
+load configuration file
+Please enter required algorithm and ram capacity
+load configuration file
+Please enter required algorithm and ram capacity
+load configuration file
+Please enter required algorithm and ram capacity
+Thank you

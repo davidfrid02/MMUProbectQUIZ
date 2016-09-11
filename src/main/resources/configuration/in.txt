@@ -1,0 +1,10 @@
+start
+load src/main/resources/configuration/Configuration.json
+mru 6
+start
+load src/main/resources/configuration/Configuration.json
+lru 234
+start
+load src/main/resources/configuration/Configuration.json
+rr 65
+stop 
